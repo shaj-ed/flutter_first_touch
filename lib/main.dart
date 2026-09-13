@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/form.dart';
 
 void main() {
   runApp(const MyApp());
@@ -35,8 +36,49 @@ class HomePage extends StatelessWidget {
         .showSnackBar(SnackBar(content: Text(message)));
   }
 
+  Future<void> alertShowing(BuildContext context) {
+    return showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: Colors.black,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadiusGeometry.circular(5),
+          ),
+          title: Text("Are you sure?", textAlign: TextAlign.center),
+          content: Text(
+            "You wanna start right now?",
+            textAlign: TextAlign.center,
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text("No"),
+            ),
+            TextButton(
+              onPressed: () {
+                showSnackBar("Go Then laddy!", context);
+                Navigator.of(context).pop();
+              },
+              child: Text("Yes"),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
+    ButtonStyle buttonStyle = ElevatedButton.styleFrom(
+      backgroundColor: Colors.deepPurpleAccent,
+      foregroundColor: Colors.white,
+
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
+    );
+
     return Scaffold(
       appBar: AppBar(
         title: Text("Inventory App"),
@@ -116,38 +158,72 @@ class HomePage extends StatelessWidget {
           ],
         ),
       ),
-      body: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      body: Column(
         children: [
-          Container(
-            width: 100,
-            height: 100,
-            decoration: BoxDecoration(
-              color: Colors.red,
-              border: Border.all(color: Colors.white, width: 2),
+          const Padding(
+            padding: EdgeInsetsGeometry.all(20),
+            child: Column(
+              children: [
+                Text(
+                  "Dashboard",
+                  style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                ),
+                Text("Everything in one hand", style: TextStyle(fontSize: 18)),
+              ],
             ),
-            child: const Center(child: Text("ROW ONE")),
           ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Container(
+                width: 100,
+                height: 100,
+                decoration: BoxDecoration(
+                  color: Colors.red,
+                  border: Border.all(color: Colors.white, width: 2),
+                ),
+                child: const Center(child: Text("ROW ONE")),
+              ),
 
-          Container(
-            width: 100,
-            height: 100,
-            decoration: BoxDecoration(
-              color: Colors.green,
-              border: Border.all(color: Colors.white, width: 2),
-            ),
-            child: const Center(child: Text("ROW TWO")),
-          ),
+              Container(
+                width: 100,
+                height: 100,
+                decoration: BoxDecoration(
+                  color: Colors.green,
+                  border: Border.all(color: Colors.white, width: 2),
+                ),
+                child: const Center(child: Text("ROW TWO")),
+              ),
 
-          Container(
-            width: 100,
-            height: 100,
-            decoration: BoxDecoration(
-              color: Colors.blue,
-              border: Border.all(color: Colors.white, width: 2),
-            ),
-            child: const Center(child: Text("ROW THREE")),
+              Container(
+                width: 100,
+                height: 100,
+                decoration: BoxDecoration(
+                  color: Colors.blue,
+                  border: Border.all(color: Colors.white, width: 2),
+                ),
+                child: const Center(child: Text("ROW THREE")),
+              ),
+            ],
           ),
+          Padding(
+            padding: EdgeInsetsGeometry.all(10),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ElevatedButton(
+                  onPressed: () => {},
+                  style: buttonStyle,
+                  child: Text("Get It", style: TextStyle(fontSize: 16)),
+                ),
+                TextButton(
+                  onPressed: () => {alertShowing(context)},
+                  child: const Text("Start Now"),
+                ),
+              ],
+            ),
+          ),
+          const MyStatefullForm(),
         ],
       ),
     );
