@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class MyStatefullForm extends StatefulWidget {
-  const MyStatefullForm({super.key});
+class SimpleForm extends StatefulWidget {
+  const SimpleForm({super.key});
 
   @override
   State<StatefulWidget> createState() => _MyForm();
 }
 
-class _MyForm extends State<MyStatefullForm> {
+class _MyForm extends State<SimpleForm> {
   final controller = TextEditingController();
   final emailController = TextEditingController();
 
